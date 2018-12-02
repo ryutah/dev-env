@@ -1,0 +1,13 @@
+ipython
+jupyter
+numpy
+pandas
+pip-tools
+virtualenv
+pip-autoremove
+python-language-server
+pip-review
+flake8
+flake8-import-order
+autopep8
+trash-cli
