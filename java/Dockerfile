@@ -1,13 +1,17 @@
-FROM openjdk:10.0.2-jdk
+FROM openjdk:11-jdk-slim
 
 WORKDIR /usr/local/lib
 
-ARG GRADLE_VERSION=4.9
-ARG MAVEN_VERSION=3.5.4
-ARG LSP_VERSION=0.24.0-201808242230
+ARG GRADLE_VERSION=5.1.1
+ARG MAVEN_VERSION=3.6.0
+ARG LSP_VERSION=0.32.0-201901231649
 
 ENV PATH=/usr/local/lib/gradle-${GRADLE_VERSION}/bin:/usr/local/lib/apache-maven-${MAVEN_VERSION}/bin:$PATH
-ENV JAR_VERSION=1.5.100.v20180611-1436
+ENV JAR_VERSION=1.5.200.v20180922-1751
+
+# Install dev dependencies
+RUN apt-get update \
+ && apt-get install -y wget procps
 
 # Install gradle
 RUN wget https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
@@ -15,7 +19,7 @@ RUN wget https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin
  && rm gradle-${GRADLE_VERSION}-bin.zip
 
 # Install Maven
-RUN wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+RUN wget http://www-eu.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
  && tar xvf apache-maven-${MAVEN_VERSION}-bin.tar.gz \
  && rm apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
